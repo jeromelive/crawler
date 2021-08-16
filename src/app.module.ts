@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ArticleModule } from './modules/article/article.module';
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { CrawlerModule } from './modules/crawler/crawler.module';
+import { StrategyModule } from './modules/strategy/strategy.module';
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { CrawlerModule } from './modules/crawler/crawler.module';
       synchronize: true,
     }),
     ArticleModule,
-    CrawlerModule],
+    CrawlerModule,
+    StrategyModule],
   controllers: [AppController],
   providers: [AppService],
 })
