@@ -12,7 +12,7 @@ export class Article {
 
   // 更新时间
   @UpdateDateColumn()
-  updataTime: Date
+  updateTime: Date
 
   // 软删除
   @Column({

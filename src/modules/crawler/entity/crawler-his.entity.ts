@@ -7,6 +7,61 @@ export class CrawlerHis {
   @PrimaryGeneratedColumn()
   id: number;
 
+  // 债券代码
+  @Column('text')
+  code: string
+
+  // 交易时间
+  @Column('text')
+  time: Date
+
+  // 开盘价
+  @Column('float')
+  openPrice: number
+
+  // 收盘价
+  @Column('float')
+  closePrice: number
+
+  // 正股开盘价
+  @Column('float')
+  stockOpenPrice: number
+
+  // 正股收盘价
+  @Column('float')
+  stockClosePrice: number
+
+  // 转股溢价率
+  @Column('float')
+  premiumRate: number
+
+  @ManyToOne(() => Crawler, crawler => crawler.crawlerHiss)
+  crawler: Crawler
+
+  // // 最高价
+  // @Column('float')
+  // highPrice: number
+
+  // // 最低价
+  // @Column('float')
+  // lowPrice: number
+
+  // // 成交量
+  // @Column('float')
+  // volume: number
+
+  // // 成交额
+  // @Column('bigint')
+  // tradingVolume: number
+
+  // // 振幅
+  // @Column('text')
+  // amplitude: string
+
+  // // 换手率
+  // @Column('text')
+  // turnoverRate: string
+
   // 创建时间
   @CreateDateColumn()
   createTime: Date
@@ -20,59 +75,4 @@ export class CrawlerHis {
     default: false
   })
   isDelete: boolean
-
-  // 债券代码
-  @Column('text')
-  code: string
-
-  // 交易时间
-  @Column('text')
-  time: Date
-
-  // 开盘价
-  @Column('text')
-  openPrice: string
-
-  // 收盘价
-  @Column('text')
-  closePrice: string
-
-  // 正股开盘价
-  @Column('text')
-  stockOpenPrice: string
-
-  // 正股收盘价
-  @Column('text')
-  stockClosePrice: string
-
-  // 最高价
-  @Column('text')
-  highPrice: string
-
-  // 最低价
-  @Column('text')
-  lowPrice: string
-
-  // 成交量
-  @Column('text')
-  volume: string
-
-  // 成交额
-  @Column('text')
-  tradingVolume: string
-
-  // 振幅
-  @Column('text')
-  amplitude: string
-
-  // 换手率
-  @Column('text')
-  turnoverRate: string
-
-  // 转股溢价率
-  @Column('text')
-  premiumRate: string
-
-  @ManyToOne(() => Crawler, crawler => crawler.crawlerHiss)
-  crawler: Crawler
 }

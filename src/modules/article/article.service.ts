@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ArticleCreateDTO } from './dto/article-create.dto';
@@ -6,6 +6,7 @@ import { ArticleEditDTO } from './dto/article-edit.dto';
 import { IdDTO } from './dto/id.dto';
 import { ListDTO } from './dto/list.dto';
 import { Article } from './entity/article.entity';
+import {getPagination} from '../../utils'
 
 @Injectable()
 export class ArticleService {
@@ -29,10 +30,15 @@ export class ArticleService {
       ])
       .skip((page - 1) * pageSize)
       .take(pageSize)
-      .getMany()
+      .getManyAndCount()
 
-    const list = await getList
-    return list
+    const [list, total] = await getList
+    const pagination = getPagination(total, pageSize, page)
+
+    return {
+      list,
+      pagination
+    }
   }
 
   async getOne(
@@ -43,39 +49,50 @@ export class ArticleService {
       .createQueryBuilder('article')
       .where('article.id = :id', { id })
       .getOne()
-    return articleDetial;
+
+    if(!articleDetial) {
+      throw new NotFoundException('找不到文章')
+    }
+
+    const result = {
+      info: articleDetial
+    }
+
+    return result;
   }
   
   async create(
     articleCreateDTO: ArticleCreateDTO
-  ):Promise<Article>{
+  ):Promise<{info: Article}>{
     const article = new Article();
     article.title = articleCreateDTO.title
     article.description = articleCreateDTO.description
     article.content = articleCreateDTO.content
     const result = await this.articleRepository.save(article);
-    return result
+    return {
+      info: result
+    }
   }
 
   async update(
     articleEditDTO: ArticleEditDTO
-  ): Promise<Article>{
+  ): Promise<{info: Article}>{
     const { id } = articleEditDTO
     const articleToUpdate = await this.articleRepository.findOne({ id })
     articleToUpdate.title = articleEditDTO.title
     articleToUpdate.description = articleEditDTO.description
     articleToUpdate.content = articleEditDTO.content
     const result = await this.articleRepository.save(articleToUpdate)
-    return result
+    return {info: result}
   }
   
   async delete (
     idDTO: IdDTO,
-  ) {
+  ): Promise<{info: Article}> {
     const { id } = idDTO
     const articleToUpdate = await this.articleRepository.findOne({ id })
     articleToUpdate.isDelete = true
     const result = await this.articleRepository.save(articleToUpdate)
-    return result
+    return {info: result}
   }
 }
