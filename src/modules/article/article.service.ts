@@ -7,6 +7,7 @@ import { IdDTO } from './dto/id.dto';
 import { ListDTO } from './dto/list.dto';
 import { Article } from './entity/article.entity';
 import {getPagination} from '../../utils'
+import { ArticleListVO } from './vo/article-list.vo';
 
 @Injectable()
 export class ArticleService {
@@ -16,7 +17,7 @@ export class ArticleService {
     this.list = []
   }
 
-  async getMore(listDTO: ListDTO) {
+  async getMore(listDTO: ListDTO): Promise<ArticleListVO> {
     const { page = 1, pageSize = 10 } = listDTO
     const getList = this.articleRepository
       .createQueryBuilder('article')
@@ -43,7 +44,7 @@ export class ArticleService {
 
   async getOne(
     idDto: IdDTO  
-  ) {
+  ): Promise<Article> {
     const { id } = idDto
     const articleDetial = await this.articleRepository
       .createQueryBuilder('article')
@@ -54,45 +55,39 @@ export class ArticleService {
       throw new NotFoundException('找不到文章')
     }
 
-    const result = {
-      info: articleDetial
-    }
-
-    return result;
+    return articleDetial;
   }
   
   async create(
     articleCreateDTO: ArticleCreateDTO
-  ):Promise<{info: Article}>{
+  ):Promise<Article>{
     const article = new Article();
     article.title = articleCreateDTO.title
     article.description = articleCreateDTO.description
     article.content = articleCreateDTO.content
     const result = await this.articleRepository.save(article);
-    return {
-      info: result
-    }
+    return result
   }
 
   async update(
     articleEditDTO: ArticleEditDTO
-  ): Promise<{info: Article}>{
+  ): Promise<Article>{
     const { id } = articleEditDTO
     const articleToUpdate = await this.articleRepository.findOne({ id })
     articleToUpdate.title = articleEditDTO.title
     articleToUpdate.description = articleEditDTO.description
     articleToUpdate.content = articleEditDTO.content
     const result = await this.articleRepository.save(articleToUpdate)
-    return {info: result}
+    return result
   }
   
   async delete (
     idDTO: IdDTO,
-  ): Promise<{info: Article}> {
+  ): Promise<Article> {
     const { id } = idDTO
     const articleToUpdate = await this.articleRepository.findOne({ id })
     articleToUpdate.isDelete = true
     const result = await this.articleRepository.save(articleToUpdate)
-    return {info: result}
+    return result
   }
 }

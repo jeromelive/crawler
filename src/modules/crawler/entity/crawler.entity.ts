@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn, Index } from "typeorm";
 import { CrawlerHis } from "./crawler-his.entity";
 
 @Entity()
@@ -12,7 +12,8 @@ export class Crawler {
   name: string
 
   // 债券代码
-  @Column('text')
+  @Index({unique: true})
+  @Column()
   code: string
 
   // 正股代码

@@ -1,4 +1,5 @@
 export class StrategyDto {
-  readonly date: string;
+  readonly time: Date;
   readonly funds: number;
+  readonly count: number;
 }

@@ -1,18 +1,20 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn, Index } from "typeorm";
 import {Crawler} from './crawler.entity'
 
 @Entity()
+@Index(["time"])
+@Index(["code", "time"], {unique: true})
 export class CrawlerHis {
   // 主见id
   @PrimaryGeneratedColumn()
   id: number;
 
   // 债券代码
-  @Column('text')
+  @Column()
   code: string
 
   // 交易时间
-  @Column('text')
+  @Column()
   time: Date
 
   // 开盘价
@@ -34,6 +36,10 @@ export class CrawlerHis {
   // 转股溢价率
   @Column('float')
   premiumRate: number
+
+  // 转股价值 100/转股价*正股价
+  @Column('float')
+  transferValue: number
 
   @ManyToOne(() => Crawler, crawler => crawler.crawlerHiss)
   crawler: Crawler

@@ -14,7 +14,7 @@ import { StrategyModule } from './modules/strategy/strategy.module';
       port: 3307,
       username: 'root',
       password: '123456',
-      database: 'test',
+      database: 'test1',
       entities: ["dist/modules/**/*.entity{.ts,.js}"],
       synchronize: true,
     }),
