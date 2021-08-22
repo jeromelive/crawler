@@ -10,4 +10,24 @@ export class StrategyController {
   run(@Query() strategyDto: StrategyDto) {
     return this.strategyService.run(strategyDto)
   }
+
+  @Get('shuangdi')
+  runShuangDi(@Query() strategyDto: StrategyDto) {
+    return this.strategyService.runShuangDi(strategyDto)
+  }
+
+  @Get('premium')
+  runPremium(@Query() strategyDto: StrategyDto) {
+    return this.strategyService.runPremium(strategyDto)
+  }
+
+  @Get('premium130')
+  runPremium130(@Query() strategyDto: StrategyDto) {
+    return this.strategyService.runPremium130(strategyDto)
+  }
+
+  @Get('runPremiumTop')
+  runPremiumTop(@Query() strategyDto: StrategyDto) {
+    return this.strategyService.runPremiumTop(strategyDto)
+  }
 }

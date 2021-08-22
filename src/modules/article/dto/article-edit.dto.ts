@@ -1,5 +1,4 @@
-import { IsNotEmpty, Matches } from "class-validator";
-import { regPositive } from "src/utils/regex.util";
+import { IsNotEmpty } from "class-validator";
 import { IdDTO } from "./id.dto";
 import { ApiProperty } from "@nestjs/swagger";
 
