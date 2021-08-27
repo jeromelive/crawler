@@ -6,7 +6,7 @@ FROM node:latest
 RUN mkdir -p  /home/webserver/static/jenkins/jerome-crawler
 
 # 将根目录下的文件都copy到container（运行此镜像的容器）文件系统的文件夹下
-COPY ./  /home/jenkins/jenkins_home/workspace/jerome-crawler
+COPY ./  /home/webserver/static/jenkins/jerome-crawler
 
 # WORKDIR指令用于设置Dockerfile中的RUN、CMD和ENTRYPOINT指令执行命令的工作目录(默认为/目录)，该指令在Dockerfile文件中可以出现多次，如果使用相对路径则为相对于WORKDIR上一次的值，
 # 例如WORKDIR /data，WORKDIR logs，RUN pwd最终输出的当前目录是/data/logs。
@@ -25,4 +25,4 @@ ENV PORT 3000
 EXPOSE 3000
 
 # 容器启动时执行的命令，类似npm run start
-CMD ["node", "/home/jenkins/jenkins_home/workspace/jerome-crawler/dist/main.js"]
+CMD ["node", "/home/webserver/static/jenkins/jerome-crawler/dist/main.js"]
