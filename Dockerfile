@@ -11,7 +11,7 @@ FROM node:latest
 # WORKDIR指令用于设置Dockerfile中的RUN、CMD和ENTRYPOINT指令执行命令的工作目录(默认为/目录)，该指令在Dockerfile文件中可以出现多次，如果使用相对路径则为相对于WORKDIR上一次的值，
 # 例如WORKDIR /data，WORKDIR logs，RUN pwd最终输出的当前目录是/data/logs。
 # cd到 /home/webserver/static/jenkins/
-# WORKDIR  /home/jenkins/jenkins_home/workspace/jerome-crawler
+WORKDIR  /home/jenkins/jenkins_home/workspace/jerome-crawler
 
 # 安装项目依赖包
 RUN npm install
