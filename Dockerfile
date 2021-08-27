@@ -15,8 +15,8 @@ WORKDIR  /home/webserver/static/jenkins/jerome-crawler
 
 # 安装项目依赖包
 RUN npm install
-RUN npm run prebuild
-RUN npm run build
+CMD ["npm", "run", "prebuild"]
+CMD ["npm", "run", "build"]
 
 # 配置环境变量
 ENV HOST 0.0.0.0
