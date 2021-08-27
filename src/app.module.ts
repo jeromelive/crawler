@@ -10,7 +10,7 @@ import { StrategyModule } from './modules/strategy/strategy.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: '120.24.71.172',
       port: 3306,
       username: 'root',
       password: '123456',
