@@ -15,7 +15,8 @@ WORKDIR  /home/webserver/static/jenkins/jerome-crawler
 
 # 安装项目依赖包
 RUN npm install
-RUN npm build
+RUN npm run prebuild
+RUN npm run build
 
 # 配置环境变量
 ENV HOST 0.0.0.0
@@ -25,4 +26,5 @@ ENV PORT 3000
 EXPOSE 3000
 
 # 容器启动时执行的命令，类似npm run start
-CMD ["node", "/home/webserver/static/jenkins/jerome-crawler/dist/main.js"]
+# CMD ["node", "/home/webserver/static/jenkins/jerome-crawler/dist/main.js"]
+CMD ["npm", "run", "start:prod"]
